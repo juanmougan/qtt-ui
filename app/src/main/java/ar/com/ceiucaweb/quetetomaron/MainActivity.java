@@ -13,6 +13,7 @@ import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import ar.com.ceiucaweb.quetetomaron.fragment.CompartirArchivosFragment;
 import ar.com.ceiucaweb.quetetomaron.fragment.PlaceholderFragment;
 
 
@@ -124,24 +125,25 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
             // Return a PlaceholderFragment (defined as a static inner class below).
             // TODO - esto se cambia por el Fragment que sea (explorar, subir)
             return PlaceholderFragment.newInstance(position + 1);
+            // TODO para que esto funcione hay que implementar OnFragmentInteractionListener
+            // Ver http://stackoverflow.com/questions/24777985/how-to-implement-onfragmentinteractionlistener
+            // return CompartirArchivosFragment.newInstance("prue", "ba");
         }
 
         @Override
         public int getCount() {
-            // Show 3 total pages.
-            // TODO - la cantidad de Fragments que haya (explorar, subir, etc?)
+            // return R.integer.cant_solapas;
             return 3;
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            // TODO - el título del Fragment va a ser un atributo del Fragment
             Locale l = Locale.getDefault();
             switch (position) {
                 case 0:
-                    return getString(R.string.title_section1).toUpperCase(l);
+                    return getString(R.string.titulo_explorar).toUpperCase(l);
                 case 1:
-                    return getString(R.string.title_section2).toUpperCase(l);
+                    return getString(R.string.titulo_compartir).toUpperCase(l);
                 case 2:
                     return getString(R.string.title_section3).toUpperCase(l);
             }
