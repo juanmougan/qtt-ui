@@ -8,16 +8,18 @@ import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.res.Resources;
+import android.net.Uri;
 import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import ar.com.ceiucaweb.quetetomaron.fragment.CompartirArchivosFragment;
 import ar.com.ceiucaweb.quetetomaron.fragment.PlaceholderFragment;
 
 
-public class MainActivity extends Activity implements ActionBar.TabListener {
+public class MainActivity extends Activity implements ActionBar.TabListener, CompartirArchivosFragment.OnFragmentInteractionListener {
 
     /**
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -109,6 +111,11 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
     public void onTabReselected(ActionBar.Tab tab, FragmentTransaction fragmentTransaction) {
     }
 
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+        // TODO - manejar la comunicación con el Fragment
+    }
+
     /**
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
@@ -124,10 +131,11 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
             // TODO - esto se cambia por el Fragment que sea (explorar, subir)
-            return PlaceholderFragment.newInstance(position + 1);
+            // return PlaceholderFragment.newInstance(position + 1);
             // TODO para que esto funcione hay que implementar OnFragmentInteractionListener
             // Ver http://stackoverflow.com/questions/24777985/how-to-implement-onfragmentinteractionlistener
-            // return CompartirArchivosFragment.newInstance("prue", "ba");
+            // TODO ver que van a ser estos parámetros! Capaz le paso la posición, capaz nada, veeer!
+            return CompartirArchivosFragment.newInstance("prue", "ba");
         }
 
         @Override
