@@ -145,7 +145,7 @@ public class MainActivity extends Activity implements ActionBar.TabListener {
                 case 1:
                     return getString(R.string.titulo_compartir).toUpperCase(l);
                 case 2:
-                    return getString(R.string.title_section3).toUpperCase(l);
+                    return getString(R.string.title_notificaciones).toUpperCase(l);
             }
             return null;
         }
