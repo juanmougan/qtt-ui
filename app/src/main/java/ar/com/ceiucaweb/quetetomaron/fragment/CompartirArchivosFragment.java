@@ -8,13 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.ListView;
 import android.widget.Spinner;
 
 import java.util.List;
 
 import ar.com.ceiucaweb.quetetomaron.R;
 import ar.com.ceiucaweb.quetetomaron.entidad.Carrera;
+import ar.com.ceiucaweb.quetetomaron.entidad.Materia;
 import ar.com.ceiucaweb.quetetomaron.manager.CarreraMockManager;
+import ar.com.ceiucaweb.quetetomaron.manager.MateriaMockManager;
 import ar.com.ceiucaweb.quetetomaron.manager.QttCarreraManager;
 import ar.com.ceiucaweb.quetetomaron.manager.QttMateriaManager;
 
@@ -38,6 +41,8 @@ public class CompartirArchivosFragment extends Fragment {
     private String mParam2;
 
     private OnFragmentInteractionListener mListener;
+    private QttCarreraManager carreraManager;
+    private QttMateriaManager materiaManager;
 
     /**
      * Use this factory method to create a new instance of
@@ -64,6 +69,9 @@ public class CompartirArchivosFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        // TODO refactor - esto va en la Activity?
+        carreraManager = CarreraMockManager.newInstance();
+        materiaManager = MateriaMockManager.newInstance();
         if (getArguments() != null) {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
@@ -74,32 +82,32 @@ public class CompartirArchivosFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        // TODO refactor del llenado de Spinners!
         // Inflar el layout del Fragment y setear el contenido de los Spinners
         View view = inflater.inflate(R.layout.fragment_compartir_archivos, container, false);
 
-        // Obtener las listas de Carrera y Materia
-        QttCarreraManager carreraManager = CarreraMockManager.newInstance();
+        prepararSpinnerCarrera(view);
+        prepararListViewMateria(view);
 
+        return view;
+    }
+
+    private void prepararSpinnerCarrera(View view) {
         Spinner carrerasSpinner = (Spinner) view.findViewById(R.id.carrera_spin);
         List<Carrera> carreras = carreraManager.fetchAllCarreras();
-        // String[] nombresCarreras = {"Ambiental", "Electrónica", "Informática"};
         ArrayAdapter<Carrera> carrerasAdapter = new ArrayAdapter<Carrera>(getActivity(),
                 android.R.layout.simple_list_item_1, carreras);
         // Specify the layout to use when the list of choices appears
         carrerasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         carrerasSpinner.setAdapter(carrerasAdapter);
+    }
 
-        Spinner materiasSpinner = (Spinner) view.findViewById(R.id.materia_spin);
-        ArrayAdapter<String> materiasAdapter = new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_list_item_1);
-        // Specify the layout to use when the list of choices appears
-        materiasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-        // Apply the adapter to the spinner
-        materiasSpinner.setAdapter(materiasAdapter);
-
-        return view;
+    private void prepararListViewMateria(View view) {
+        ListView materiasListView = (ListView) view.findViewById(R.id.materia_list);
+        List<Materia> materias = materiaManager.fetchAllMaterias();
+        ArrayAdapter<Materia> materiasAdapter = new ArrayAdapter<Materia>(getActivity(),
+                android.R.layout.simple_list_item_1, materias);
+        materiasListView.setAdapter(materiasAdapter);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

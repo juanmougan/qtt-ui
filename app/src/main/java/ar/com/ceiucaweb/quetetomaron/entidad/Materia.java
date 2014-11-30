@@ -31,6 +31,14 @@ public class Materia {
         this.nombre = nombre;
     }
 
+    public Carrera getCarrera() {
+        return this.carrera;
+    }
+
+    public void setCarrera(Carrera carrera) {
+        this.carrera = carrera;
+    }
+
     @Override
     public String toString() {
         return this.getNombre();

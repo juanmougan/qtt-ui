@@ -12,4 +12,6 @@ public interface QttCarreraManager {
 
     public List<Carrera> fetchAllCarreras();
 
+    public Carrera findCarreraById(long id);
+
 }

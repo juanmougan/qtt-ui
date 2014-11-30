@@ -9,11 +9,11 @@ import ar.com.ceiucaweb.quetetomaron.entidad.Carrera;
  * Mock de la implementación. Los nombres están harcodeados!
  * Created by juanmougan@gmail.com on 29/11/14.
  */
-public class CarreraMockManager implements QttCarreraManager {
+public final class CarreraMockManager implements QttCarreraManager {
 
     private static String[] nombreCarreras = {"Ambiental", "Electrónica", "Informática"};
     private static List<Carrera> carreras = new ArrayList<Carrera>();
-    private static CarreraMockManager instance;
+    private static CarreraMockManager instance = null;
 
     private CarreraMockManager() {
         int i = 0;
@@ -34,6 +34,15 @@ public class CarreraMockManager implements QttCarreraManager {
     @Override
     public List<Carrera> fetchAllCarreras() {
         return carreras;
+    }
+
+    @Override
+    public Carrera findCarreraById(long id) {
+        for (Carrera carrera : CarreraMockManager.carreras) {
+            if (carrera.getId() == id)
+                return carrera;
+        }
+        return null;
     }
 
 }
