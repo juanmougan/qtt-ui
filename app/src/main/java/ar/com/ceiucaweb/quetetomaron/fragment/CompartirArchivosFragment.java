@@ -10,7 +10,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Spinner;
 
+import java.util.List;
+
 import ar.com.ceiucaweb.quetetomaron.R;
+import ar.com.ceiucaweb.quetetomaron.entidad.Carrera;
 import ar.com.ceiucaweb.quetetomaron.manager.CarreraMockManager;
 import ar.com.ceiucaweb.quetetomaron.manager.QttCarreraManager;
 import ar.com.ceiucaweb.quetetomaron.manager.QttMateriaManager;
@@ -79,9 +82,10 @@ public class CompartirArchivosFragment extends Fragment {
         QttCarreraManager carreraManager = CarreraMockManager.newInstance();
 
         Spinner carrerasSpinner = (Spinner) view.findViewById(R.id.carrera_spin);
-        String[] nombresCarreras = {"Ambiental", "Electrónica", "Informática"};
-        ArrayAdapter<String> carrerasAdapter = new ArrayAdapter<String>(getActivity(),
-                android.R.layout.simple_list_item_1, nombresCarreras);
+        List<Carrera> carreras = carreraManager.fetchAllCarreras();
+        // String[] nombresCarreras = {"Ambiental", "Electrónica", "Informática"};
+        ArrayAdapter<Carrera> carrerasAdapter = new ArrayAdapter<Carrera>(getActivity(),
+                android.R.layout.simple_list_item_1, carreras);
         // Specify the layout to use when the list of choices appears
         carrerasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
