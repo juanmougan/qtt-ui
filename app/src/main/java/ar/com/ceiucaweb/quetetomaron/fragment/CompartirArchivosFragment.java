@@ -1,14 +1,19 @@
 package ar.com.ceiucaweb.quetetomaron.fragment;
 
 import android.app.Activity;
+import android.app.Fragment;
 import android.net.Uri;
 import android.os.Bundle;
-import android.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.Spinner;
 
 import ar.com.ceiucaweb.quetetomaron.R;
+import ar.com.ceiucaweb.quetetomaron.manager.CarreraMockManager;
+import ar.com.ceiucaweb.quetetomaron.manager.QttCarreraManager;
+import ar.com.ceiucaweb.quetetomaron.manager.QttMateriaManager;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -17,7 +22,6 @@ import ar.com.ceiucaweb.quetetomaron.R;
  * to handle interaction events.
  * Use the {@link CompartirArchivosFragment#newInstance} factory method to
  * create an instance of this fragment.
- *
  */
 public class CompartirArchivosFragment extends Fragment {
 
@@ -49,6 +53,7 @@ public class CompartirArchivosFragment extends Fragment {
         fragment.setArguments(args);
         return fragment;
     }
+
     public CompartirArchivosFragment() {
         // Required empty public constructor
     }
@@ -65,8 +70,32 @@ public class CompartirArchivosFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_compartir_archivos, container, false);
+
+        // TODO refactor del llenado de Spinners!
+        // Inflar el layout del Fragment y setear el contenido de los Spinners
+        View view = inflater.inflate(R.layout.fragment_compartir_archivos, container, false);
+
+        // Obtener las listas de Carrera y Materia
+        QttCarreraManager carreraManager = CarreraMockManager.newInstance();
+
+        Spinner carrerasSpinner = (Spinner) view.findViewById(R.id.carrera_spin);
+        String[] nombresCarreras = {"Ambiental", "Electrónica", "Informática"};
+        ArrayAdapter<String> carrerasAdapter = new ArrayAdapter<String>(getActivity(),
+                android.R.layout.simple_list_item_1, nombresCarreras);
+        // Specify the layout to use when the list of choices appears
+        carrerasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        carrerasSpinner.setAdapter(carrerasAdapter);
+
+        Spinner materiasSpinner = (Spinner) view.findViewById(R.id.materia_spin);
+        ArrayAdapter<String> materiasAdapter = new ArrayAdapter<String>(getActivity(),
+                android.R.layout.simple_list_item_1);
+        // Specify the layout to use when the list of choices appears
+        materiasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+        // Apply the adapter to the spinner
+        materiasSpinner.setAdapter(materiasAdapter);
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -98,7 +127,7 @@ public class CompartirArchivosFragment extends Fragment {
      * fragment to allow an interaction in this fragment to be communicated
      * to the activity and potentially other fragments contained in that
      * activity.
-     * <p>
+     * <p/>
      * See the Android Training lesson <a href=
      * "http://developer.android.com/training/basics/fragments/communicating.html"
      * >Communicating with Other Fragments</a> for more information.

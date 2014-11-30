@@ -1,22 +1,21 @@
 package ar.com.ceiucaweb.quetetomaron;
 
-import java.util.Locale;
-
-import android.app.Activity;
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.Fragment;
 import android.app.FragmentManager;
 import android.app.FragmentTransaction;
 import android.content.res.Resources;
 import android.net.Uri;
-import android.support.v13.app.FragmentPagerAdapter;
 import android.os.Bundle;
+import android.support.v13.app.FragmentPagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.Menu;
 import android.view.MenuItem;
 
+import java.util.Locale;
+
 import ar.com.ceiucaweb.quetetomaron.fragment.CompartirArchivosFragment;
-import ar.com.ceiucaweb.quetetomaron.fragment.PlaceholderFragment;
 
 
 public class MainActivity extends Activity implements ActionBar.TabListener, CompartirArchivosFragment.OnFragmentInteractionListener {
