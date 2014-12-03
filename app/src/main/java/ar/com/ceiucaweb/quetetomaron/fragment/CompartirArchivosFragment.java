@@ -111,6 +111,7 @@ public class CompartirArchivosFragment extends Fragment {
                 CompartirArchivosFragment.this.materiasDeCarrera = CompartirArchivosFragment.this.
                         materiaManager.fetchMateriasDeCarrera(carreraSeleccionada);
                 // TODO esto no funca porque el parametro es final. Que hacemoo??
+                // Custom adapter? ver la tarjeta: https://trello.com/c/dl4Pkby2
                 ArrayAdapter adapter = (ArrayAdapter) materiasListView.getAdapter();
                 adapter.notifyDataSetChanged();
             }
