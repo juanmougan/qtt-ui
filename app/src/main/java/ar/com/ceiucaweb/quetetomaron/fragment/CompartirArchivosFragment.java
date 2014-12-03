@@ -8,10 +8,10 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -23,9 +23,6 @@ import ar.com.ceiucaweb.quetetomaron.manager.CarreraMockManager;
 import ar.com.ceiucaweb.quetetomaron.manager.MateriaMockManager;
 import ar.com.ceiucaweb.quetetomaron.manager.QttCarreraManager;
 import ar.com.ceiucaweb.quetetomaron.manager.QttMateriaManager;
-
-import static android.widget.Toast.*;
-import static android.widget.Toast.makeText;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -100,9 +97,6 @@ public class CompartirArchivosFragment extends Fragment {
         return view;
     }
 
-<<<<<<< Updated upstream
-    private void prepararSpinnerCarrera(View view) {
-=======
     /**
      * Crear un Listener para cargar dinámicamente las Materias de la Carrera elegida
      * @param carrerasSpinner el Spinner de carreras que se usará como filtro
@@ -130,7 +124,6 @@ public class CompartirArchivosFragment extends Fragment {
     }
 
     private Spinner prepararSpinnerCarrera(View view) {
->>>>>>> Stashed changes
         Spinner carrerasSpinner = (Spinner) view.findViewById(R.id.carrera_spin);
         List<Carrera> carreras = carreraManager.fetchAllCarreras();
         ArrayAdapter<Carrera> carrerasAdapter = new ArrayAdapter<Carrera>(getActivity(),
@@ -139,6 +132,7 @@ public class CompartirArchivosFragment extends Fragment {
         carrerasAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
         // Apply the adapter to the spinner
         carrerasSpinner.setAdapter(carrerasAdapter);
+        return carrerasSpinner;
     }
 
     private void prepararListViewMateria(View view) {
