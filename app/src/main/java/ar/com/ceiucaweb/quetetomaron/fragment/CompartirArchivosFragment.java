@@ -4,13 +4,16 @@ import android.app.Activity;
 import android.app.Fragment;
 import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import ar.com.ceiucaweb.quetetomaron.R;
@@ -20,6 +23,9 @@ import ar.com.ceiucaweb.quetetomaron.manager.CarreraMockManager;
 import ar.com.ceiucaweb.quetetomaron.manager.MateriaMockManager;
 import ar.com.ceiucaweb.quetetomaron.manager.QttCarreraManager;
 import ar.com.ceiucaweb.quetetomaron.manager.QttMateriaManager;
+
+import static android.widget.Toast.*;
+import static android.widget.Toast.makeText;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -35,6 +41,7 @@ public class CompartirArchivosFragment extends Fragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private static final String TAG = CompartirArchivosFragment.class.getSimpleName();
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -43,6 +50,8 @@ public class CompartirArchivosFragment extends Fragment {
     private OnFragmentInteractionListener mListener;
     private QttCarreraManager carreraManager;
     private QttMateriaManager materiaManager;
+
+    private List<Materia> materiasDeCarrera = new ArrayList<Materia>(0);
 
     /**
      * Use this factory method to create a new instance of
@@ -91,7 +100,37 @@ public class CompartirArchivosFragment extends Fragment {
         return view;
     }
 
+<<<<<<< Updated upstream
     private void prepararSpinnerCarrera(View view) {
+=======
+    /**
+     * Crear un Listener para cargar dinámicamente las Materias de la Carrera elegida
+     * @param carrerasSpinner el Spinner de carreras que se usará como filtro
+     * @param materiasListView
+     */
+    private void configurarListenerParaCargarMaterias(Spinner carrerasSpinner, final ListView materiasListView) {
+        carrerasSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                Log.d(TAG, "seleccionado item en posición: " + position);
+                Carrera carreraSeleccionada = (Carrera) parent.getSelectedItem();
+                CompartirArchivosFragment.this.materiasDeCarrera = CompartirArchivosFragment.this.
+                        materiaManager.fetchMateriasDeCarrera(carreraSeleccionada);
+                // TODO esto no funca porque el parametro es final. Que hacemoo??
+                ArrayAdapter adapter = (ArrayAdapter) materiasListView.getAdapter();
+                adapter.notifyDataSetChanged();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                // TODO puedo limpiar la lista desde una inner class?
+                Log.d(TAG, "No se seleccionó nada");
+            }
+        });
+    }
+
+    private Spinner prepararSpinnerCarrera(View view) {
+>>>>>>> Stashed changes
         Spinner carrerasSpinner = (Spinner) view.findViewById(R.id.carrera_spin);
         List<Carrera> carreras = carreraManager.fetchAllCarreras();
         ArrayAdapter<Carrera> carrerasAdapter = new ArrayAdapter<Carrera>(getActivity(),
@@ -104,9 +143,8 @@ public class CompartirArchivosFragment extends Fragment {
 
     private void prepararListViewMateria(View view) {
         ListView materiasListView = (ListView) view.findViewById(R.id.materia_list);
-        List<Materia> materias = materiaManager.fetchAllMaterias();
         ArrayAdapter<Materia> materiasAdapter = new ArrayAdapter<Materia>(getActivity(),
-                android.R.layout.simple_list_item_1, materias);
+                android.R.layout.simple_list_item_1, materiasDeCarrera);
         materiasListView.setAdapter(materiasAdapter);
     }
 

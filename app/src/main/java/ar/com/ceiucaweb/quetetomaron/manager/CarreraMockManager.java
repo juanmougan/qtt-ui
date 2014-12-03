@@ -11,7 +11,7 @@ import ar.com.ceiucaweb.quetetomaron.entidad.Carrera;
  */
 public final class CarreraMockManager implements QttCarreraManager {
 
-    private static String[] nombreCarreras = {"Ambiental", "Electrónica", "Informática"};
+    private static String[] nombreCarreras = {"Materias Comunes", "Ambiental", "Electrónica", "Informática"};
     private static List<Carrera> carreras = new ArrayList<Carrera>();
     private static CarreraMockManager instance = null;
 

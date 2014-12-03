@@ -55,4 +55,14 @@ public final class MateriaMockManager implements QttMateriaManager {
     public List<Materia> fetchAllMaterias() {
         return materias;
     }
+
+    @Override
+    public List<Materia> fetchMateriasDeCarrera(Carrera carrera) {
+        List<Materia> materiasFiltradas = new ArrayList<Materia>();
+        for (Materia materia : materias) {
+            if (materia.esDeLaCarrera(carrera))
+                materiasFiltradas.add(materia);
+        }
+        return materiasFiltradas;
+    }
 }

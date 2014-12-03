@@ -39,6 +39,10 @@ public class Materia {
         this.carrera = carrera;
     }
 
+    public boolean esDeLaCarrera(Carrera carrera) {
+        return this.carrera != null && this.carrera.equals(carrera);
+    }
+
     @Override
     public String toString() {
         return this.getNombre();

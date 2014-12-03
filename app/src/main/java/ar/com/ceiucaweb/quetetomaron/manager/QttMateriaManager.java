@@ -2,6 +2,7 @@ package ar.com.ceiucaweb.quetetomaron.manager;
 
 import java.util.List;
 
+import ar.com.ceiucaweb.quetetomaron.entidad.Carrera;
 import ar.com.ceiucaweb.quetetomaron.entidad.Materia;
 
 /**
@@ -11,5 +12,7 @@ import ar.com.ceiucaweb.quetetomaron.entidad.Materia;
 public interface QttMateriaManager {
 
     public List<Materia> fetchAllMaterias();
+
+    public List<Materia> fetchMateriasDeCarrera(Carrera carrera);
 
 }
