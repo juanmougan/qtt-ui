@@ -9,19 +9,25 @@
         android:layout_height="fill_parent"
         android:orientation="vertical">
 
-        <Button
-            android:id="@+id/compartir_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/boton_compartir_arch" />
+        <RadioGroup
+            android:layout_width="fill_parent"
+            android:layout_height="wrap_content">
 
-        <Button
-            android:id="@+id/sacar_foto_btn"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="10dp"
-            android:text="@string/boton_sacar_foto" />
+            <RadioButton
+                android:id="@+id/compartir_r_btn"
+                android:layout_marginTop="10dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/boton_compartir_arch" />
+
+            <RadioButton
+                android:id="@+id/sacar_foto_r_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="10dp"
+                android:text="@string/boton_sacar_foto" />
+
+        </RadioGroup>
 
         <Spinner
             android:id="@+id/carrera_spin"
@@ -31,7 +37,15 @@
         <ListView
             android:id="@+id/materia_list"
             android:layout_width="wrap_content"
-            android:layout_height="fill_parent"/>
+            android:layout_height="wrap_content"/>
+
+        <Button
+            android:id="@+id/aceptar_compartir_btn"
+            android:layout_gravity="bottom"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            android:text="@string/btn_aceptar_compartir" />
 
     </LinearLayout>
 
