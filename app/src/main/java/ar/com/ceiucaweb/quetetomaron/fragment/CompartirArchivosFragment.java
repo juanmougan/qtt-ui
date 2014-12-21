@@ -50,6 +50,8 @@ public class CompartirArchivosFragment extends Fragment {
     private QttMateriaManager materiaManager;
 
     private List<Materia> materiasDeCarrera = new ArrayList<Materia>(0);
+    private ListView materiasListView;
+    private Spinner carreraSpinner;
 
     /**
      * Use this factory method to create a new instance of
@@ -92,20 +94,18 @@ public class CompartirArchivosFragment extends Fragment {
         // Inflar el layout del Fragment y setear el contenido de los Spinners
         View view = inflater.inflate(R.layout.fragment_compartir_archivos, container, false);
 
-        Spinner spinner = prepararSpinnerCarrera(view);
-        ListView materias = prepararListViewMateria(view);
-        configurarListenerParaCargarMaterias(spinner, materias);
+        this.carreraSpinner = prepararSpinnerCarrera(view);
+        this.materiasListView = prepararListViewMateria(view);
+        configurarListenerParaCargarMaterias();
 
         return view;
     }
 
     /**
      * Crear un Listener para cargar dinámicamente las Materias de la Carrera elegida
-     * @param carrerasSpinner el Spinner de carreras que se usará como filtro
-     * @param materiasListView la ListView de Materias a filtrar
      */
-    private void configurarListenerParaCargarMaterias(Spinner carrerasSpinner, final ListView materiasListView) {
-        carrerasSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+    private void configurarListenerParaCargarMaterias() {
+        this.carreraSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 Log.d(TAG, "seleccionado item en posición: " + position);
@@ -113,7 +113,8 @@ public class CompartirArchivosFragment extends Fragment {
                 CompartirArchivosFragment.this.materiasDeCarrera = CompartirArchivosFragment.this.
                         materiaManager.fetchMateriasDeCarrera(carreraSeleccionada);
                 // Custom adapter? ver la tarjeta: https://trello.com/c/dl4Pkby2
-                MateriaAdapter adapter = (MateriaAdapter) materiasListView.getAdapter();
+                MateriaAdapter adapter = (MateriaAdapter) CompartirArchivosFragment.this.
+                        materiasListView.getAdapter();
                 // ArrayAdapter<Materia> adapter = (ArrayAdapter<Materia>) materiasListView.getAdapter();
                 adapter.getFilter().filter(carreraSeleccionada.getNombre());
             }
