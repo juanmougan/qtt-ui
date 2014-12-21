@@ -43,6 +43,11 @@ public class Materia {
         return this.carrera != null && this.carrera.equals(carrera);
     }
 
+    public boolean esDeLaCarreraPorNombre(String nombreCarrera) {
+        return this.carrera != null && this.carrera.getNombre() != null &&
+                this.carrera.getNombre().equals(nombreCarrera);
+    }
+
     @Override
     public String toString() {
         return this.getNombre();

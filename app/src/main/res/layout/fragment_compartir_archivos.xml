@@ -39,6 +39,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"/>
 
+        <!--
         <Button
             android:id="@+id/aceptar_compartir_btn"
             android:layout_gravity="bottom"
@@ -46,6 +47,7 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="10dp"
             android:text="@string/btn_aceptar_compartir" />
+        -->
 
     </LinearLayout>
 

@@ -1,9 +1,7 @@
 package ar.com.ceiucaweb.quetetomaron.manager;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import ar.com.ceiucaweb.quetetomaron.entidad.Carrera;
 import ar.com.ceiucaweb.quetetomaron.entidad.Materia;
@@ -62,6 +60,17 @@ public final class MateriaMockManager implements QttMateriaManager {
         for (Materia materia : materias) {
             if (materia.esDeLaCarrera(carrera))
                 materiasFiltradas.add(materia);
+        }
+        return materiasFiltradas;
+    }
+
+    @Override
+    public List<Materia> fetchMateriasDeCarreraPorNombre(CharSequence nombreCarrera) {
+        List<Materia> materiasFiltradas = new ArrayList<Materia>();
+        for (Materia materia : materias) {
+            if (materia.esDeLaCarreraPorNombre((String) nombreCarrera)) {
+                materiasFiltradas.add(materia);
+            }
         }
         return materiasFiltradas;
     }

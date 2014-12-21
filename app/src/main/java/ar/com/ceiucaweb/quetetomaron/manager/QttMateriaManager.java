@@ -15,4 +15,6 @@ public interface QttMateriaManager {
 
     public List<Materia> fetchMateriasDeCarrera(Carrera carrera);
 
+    public List<Materia> fetchMateriasDeCarreraPorNombre(CharSequence nombreCarrera);
+
 }

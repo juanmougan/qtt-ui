@@ -17,6 +17,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import ar.com.ceiucaweb.quetetomaron.R;
+import ar.com.ceiucaweb.quetetomaron.adapter.MateriaAdapter;
 import ar.com.ceiucaweb.quetetomaron.entidad.Carrera;
 import ar.com.ceiucaweb.quetetomaron.entidad.Materia;
 import ar.com.ceiucaweb.quetetomaron.manager.CarreraMockManager;
@@ -91,8 +92,9 @@ public class CompartirArchivosFragment extends Fragment {
         // Inflar el layout del Fragment y setear el contenido de los Spinners
         View view = inflater.inflate(R.layout.fragment_compartir_archivos, container, false);
 
-        prepararSpinnerCarrera(view);
-        prepararListViewMateria(view);
+        Spinner spinner = prepararSpinnerCarrera(view);
+        ListView materias = prepararListViewMateria(view);
+        configurarListenerParaCargarMaterias(spinner, materias);
 
         return view;
     }
@@ -100,7 +102,7 @@ public class CompartirArchivosFragment extends Fragment {
     /**
      * Crear un Listener para cargar dinámicamente las Materias de la Carrera elegida
      * @param carrerasSpinner el Spinner de carreras que se usará como filtro
-     * @param materiasListView
+     * @param materiasListView la ListView de Materias a filtrar
      */
     private void configurarListenerParaCargarMaterias(Spinner carrerasSpinner, final ListView materiasListView) {
         carrerasSpinner.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -110,10 +112,10 @@ public class CompartirArchivosFragment extends Fragment {
                 Carrera carreraSeleccionada = (Carrera) parent.getSelectedItem();
                 CompartirArchivosFragment.this.materiasDeCarrera = CompartirArchivosFragment.this.
                         materiaManager.fetchMateriasDeCarrera(carreraSeleccionada);
-                // TODO esto no funca porque el parametro es final. Que hacemoo??
                 // Custom adapter? ver la tarjeta: https://trello.com/c/dl4Pkby2
-                ArrayAdapter adapter = (ArrayAdapter) materiasListView.getAdapter();
-                adapter.notifyDataSetChanged();
+                MateriaAdapter adapter = (MateriaAdapter) materiasListView.getAdapter();
+                // ArrayAdapter<Materia> adapter = (ArrayAdapter<Materia>) materiasListView.getAdapter();
+                adapter.getFilter().filter(carreraSeleccionada.getNombre());
             }
 
             @Override
@@ -136,11 +138,13 @@ public class CompartirArchivosFragment extends Fragment {
         return carrerasSpinner;
     }
 
-    private void prepararListViewMateria(View view) {
+    private ListView prepararListViewMateria(View view) {
         ListView materiasListView = (ListView) view.findViewById(R.id.materia_list);
-        ArrayAdapter<Materia> materiasAdapter = new ArrayAdapter<Materia>(getActivity(),
-                android.R.layout.simple_list_item_1, materiasDeCarrera);
+        // ArrayAdapter<Materia> materiasAdapter = new ArrayAdapter<Materia>(getActivity(),
+        //         android.R.layout.simple_list_item_1, materiasDeCarrera);
+        MateriaAdapter materiasAdapter = MateriaAdapter.newInstance(getActivity(), materiasDeCarrera);
         materiasListView.setAdapter(materiasAdapter);
+        return materiasListView;
     }
 
     // TODO: Rename method, update argument and hook method into UI event
